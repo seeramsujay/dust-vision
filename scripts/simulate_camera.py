@@ -1,10 +1,12 @@
-import pandas as pd
-import numpy as np
 import os
 from datetime import timedelta
 
+import numpy as np
+import pandas as pd
+
 SENSOR_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "sensor_data.csv")
 OUT_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "camera_events.csv")
+
 
 def main():
     print("Starting camera event simulation...")
@@ -23,13 +25,15 @@ def main():
             delay = np.random.randint(0, 3)  # camera may detect 0–2 mins later
             cam_time = row["timestamp"] + timedelta(minutes=delay)
 
-            camera_events.append({
-                "timestamp": cam_time,
-                "node_id": row["node_id"],
-                "severity": round(np.random.uniform(0.4, 1.0), 2),
-                "confidence": round(np.random.uniform(0.6, 1.0), 2),
-                "type": "real"
-            })
+            camera_events.append(
+                {
+                    "timestamp": cam_time,
+                    "node_id": row["node_id"],
+                    "severity": round(np.random.uniform(0.4, 1.0), 2),
+                    "confidence": round(np.random.uniform(0.6, 1.0), 2),
+                    "type": "real",
+                }
+            )
 
     # now add false positives (camera mistakes)
     false_events_count = 30
@@ -37,13 +41,15 @@ def main():
     nodes = df["node_id"].unique()
 
     for _ in range(false_events_count):
-        camera_events.append({
-            "timestamp": np.random.choice(timestamps),
-            "node_id": int(np.random.choice(nodes)),
-            "severity": round(np.random.uniform(0.2, 0.6), 2),
-            "confidence": round(np.random.uniform(0.3, 0.7), 2),
-            "type": "false_positive"
-        })
+        camera_events.append(
+            {
+                "timestamp": np.random.choice(timestamps),
+                "node_id": int(np.random.choice(nodes)),
+                "severity": round(np.random.uniform(0.2, 0.6), 2),
+                "confidence": round(np.random.uniform(0.3, 0.7), 2),
+                "type": "false_positive",
+            }
+        )
 
     # Convert to DataFrame and save
     cam_df = pd.DataFrame(camera_events)
@@ -54,6 +60,7 @@ def main():
     print("✔ Camera simulation completed!")
     print(f"✔ File saved at: {OUT_PATH}")
     print(cam_df.head())
+
 
 if __name__ == "__main__":
     main()

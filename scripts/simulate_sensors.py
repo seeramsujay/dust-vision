@@ -1,13 +1,12 @@
-
-
+import os
+from datetime import datetime
 
 import numpy as np
 import pandas as pd
-from datetime import datetime
-import os
 
 # Output file path (goes to ../data/sensor_data.csv)
 OUT_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "sensor_data.csv")
+
 
 def main():
     print("Starting sensor simulation...")
@@ -19,9 +18,7 @@ def main():
 
     # Time series (1-minute interval)
     timestamps = pd.date_range(
-        start=datetime(2025, 1, 1, 0, 0),
-        periods=minutes,
-        freq="T"
+        start=datetime(2025, 1, 1, 0, 0), periods=minutes, freq="T"
     )
 
     rows = []
@@ -47,16 +44,18 @@ def main():
         humidity = np.random.uniform(40, 80, minutes)
 
         for i in range(minutes):
-            rows.append({
-                "timestamp": timestamps[i],
-                "node_id": node,
-                "pm25": base_pm25 + noise_pm25[i] + spike_pm25[i],
-                "pm10": base_pm10 + noise_pm10[i] + spike_pm10[i],
-                "wind_speed": wind_speed[i],
-                "wind_dir": wind_dir[i],
-                "humidity": humidity[i],
-                "is_spike": spikes[i]
-            })
+            rows.append(
+                {
+                    "timestamp": timestamps[i],
+                    "node_id": node,
+                    "pm25": base_pm25 + noise_pm25[i] + spike_pm25[i],
+                    "pm10": base_pm10 + noise_pm10[i] + spike_pm10[i],
+                    "wind_speed": wind_speed[i],
+                    "wind_dir": wind_dir[i],
+                    "humidity": humidity[i],
+                    "is_spike": spikes[i],
+                }
+            )
 
     df = pd.DataFrame(rows)
 
@@ -67,6 +66,7 @@ def main():
     print("✔ Sensor simulation completed!")
     print(f"✔ File saved at: {OUT_PATH}")
     print(df.head())
+
 
 if __name__ == "__main__":
     main()
