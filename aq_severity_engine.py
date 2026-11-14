@@ -20,9 +20,5 @@ class SeverityRuleEngine:
             level = "hazardous"
             display_name = "Hazardous"
             color = "Crimson"
-            
-        return {
-            'level': level,
-            'display_name': display_name,
-            'color': color
-        }
+
+        return {"level": level, "display_name": display_name, "color": color}
