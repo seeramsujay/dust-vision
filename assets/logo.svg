@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080E14" />
+      <stop offset="50%" stop-color="#111B24" />
+      <stop offset="100%" stop-color="#04080C" />
+    </linearGradient>
+
+    <!-- Particulate Dust-to-Clean Mist Gradient -->
+    <linearGradient id="dust-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B" />
+      <stop offset="50%" stop-color="#06B6D4" />
+      <stop offset="100%" stop-color="#10B981" />
+    </linearGradient>
+
+    <!-- Suppression Spray Water Jet Gradient -->
+    <linearGradient id="spray-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#0284C7" />
+    </linearGradient>
+
+    <linearGradient id="core-glow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#06B6D4" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#10B981" stop-opacity="0.05" />
+    </linearGradient>
+
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <filter id="subtle-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="800" rx="160" fill="url(#bg-grad)" />
+  <rect width="796" height="796" x="2" y="2" rx="158" fill="none" stroke="#1E2E3B" stroke-width="2" />
+
+  <!-- Wind Corridor Vector Reticle (50 to 140 degree sector) -->
+  <g opacity="0.16" stroke="#06B6D4" stroke-width="1.5">
+    <circle cx="400" cy="380" r="140" fill="none" stroke-dasharray="6 6" />
+    <circle cx="400" cy="380" r="230" fill="none" stroke-dasharray="8 8" />
+    <line x1="400" y1="100" x2="400" y2="660" stroke-dasharray="4 8" />
+    <line x1="120" y1="380" x2="680" y2="380" stroke-dasharray="4 8" />
+  </g>
+
+  <!-- Circular AQI Status Perimeter Ring -->
+  <circle cx="400" cy="380" r="170" fill="url(#core-glow)" stroke="url(#dust-grad)" stroke-width="8" filter="url(#glow)" />
+
+  <!-- Wind Corridor Angle Wedge (50 to 140 degrees) -->
+  <path d="M 400 380 L 530 250 A 184 184 0 0 1 540 510 Z" fill="#F59E0B" opacity="0.12" />
+
+  <!-- Computer Vision Optical Lens Aperture at Center -->
+  <circle cx="400" cy="380" r="90" fill="#0D1822" stroke="#38BDF8" stroke-width="4" />
+
+  <!-- Particulate Plume (Incoming PM10 dust scatter) -->
+  <g fill="#F59E0B" filter="url(#subtle-glow)">
+    <circle cx="280" cy="350" r="8" />
+    <circle cx="260" cy="390" r="11" />
+    <circle cx="290" cy="420" r="7" />
+    <circle cx="310" cy="370" r="9" />
+    <circle cx="330" cy="410" r="6" />
+  </g>
+
+  <!-- Clean Mist Suppression Water Spray (Neutralizing Dust) -->
+  <g stroke="url(#spray-grad)" stroke-width="4" stroke-linecap="round" fill="none" filter="url(#subtle-glow)">
+    <!-- High-Pressure Mist Fan Rays -->
+    <path d="M 400 380 Q 460 320, 520 290" />
+    <path d="M 400 380 Q 480 360, 550 350" />
+    <path d="M 400 380 Q 480 400, 550 410" />
+    <path d="M 400 380 Q 460 440, 520 470" />
+  </g>
+
+  <!-- Water Droplets Atomization (Clean Air Outcome) -->
+  <g fill="#10B981" filter="url(#subtle-glow)">
+    <circle cx="490" cy="310" r="5" />
+    <circle cx="530" cy="350" r="6" />
+    <circle cx="530" cy="410" r="6" />
+    <circle cx="490" cy="450" r="5" />
+    <circle cx="400" cy="380" r="14" fill="#38BDF8" stroke="#F8FAFC" stroke-width="3" />
+  </g>
+
+  <!-- Micro-Nozzle Center Emblem -->
+  <polygon points="392,370 412,380 392,390" fill="#06B6D4" />
+
+  <!-- Typography -->
+  <text x="400" y="685" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="34" font-weight="800" fill="#F8FAFC" letter-spacing="4">
+    DUST<tspan fill="#06B6D4">VISION</tspan>
+  </text>
+  <text x="400" y="722" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600" fill="#94A3B8" letter-spacing="3">
+    PREDICTIVE PM10 FORECAST &amp; MITIGATION
+  </text>
+</svg>

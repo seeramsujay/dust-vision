@@ -1,29 +1,41 @@
-# 🌫️ DustVision: Smart-City Particulate Fusion, ML Forecasting & Governance Framework
+<p align="center">
+  <img src="assets/logo.svg" alt="DustVision Logo" width="220" />
+</p>
 
-> Fusing IoT telemetry, wind vectors, and computer vision events to proactively mitigate urban construction dust.
+<h1 align="center">DustVision</h1>
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
-[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg?style=flat-square)](https://www.python.org/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.104+-emerald.svg?style=flat-square)](https://fastapi.tiangolo.com/)
-[![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-1.3+-orange.svg?style=flat-square)](https://scikit-learn.org/)
+<p align="center">
+  <strong>IoT &amp; Computer Vision Predictive PM10 Air Quality Forecasting Engine with Automated Mist Suppression.</strong>
+</p>
 
-DustVision is an enterprise-grade, smart-city-oriented software architecture engineered to **detect, forecast, and actively mitigate construction-driven dust pollution (PM2.5 and PM10)**. By fusing real-time IoT particulate sensor arrays, wind vectors, and closed-circuit camera dust event classifiers, the system operates a proactive mitigation autopilot that triggers local dust suppression (sprinklers) and logs automated contractor compliance penalties days before air quality breaches regulatory limits.
+<p align="center">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square" alt="License: MIT"></a>
+  <img src="https://img.shields.io/badge/ML-Random_Forest_Regressor-10B981.svg?style=flat-square" alt="Random Forest">
+  <img src="https://img.shields.io/badge/Framework-FastAPI-009688.svg?style=flat-square&logo=fastapi" alt="FastAPI">
+  <img src="https://img.shields.io/badge/Inference_Latency-%3C5ms-06B6D4.svg?style=flat-square" alt="Latency">
+  <a href="future.md"><img src="https://img.shields.io/badge/roadmap-future.md-blueviolet.svg?style=flat-square" alt="Roadmap"></a>
+</p>
 
 ---
 
-## 🏗️ Technical & Analytical Architecture
+## ⚡ Overview
 
-DustVision couples multi-sensor data fusion, time-series machine learning, and rule-based governance into a seamless urban orchestration loop:
+**DustVision** is an intelligent urban air quality forecasting and mitigation pipeline. Designed for city operations hubs and industrial construction zones, it combines IoT sensor telemetry with spatial computer vision camera alerts and physical wind corridor modeling to predict PM10 spikes up to 30 minutes in advance, autonomously dispatching water-mist suppression cannons before air quality degrades.
+
+---
+
+## 🏗️ System Architecture
 
 ```mermaid
 flowchart TD
-    subgraph Data Layer [Multi-Sensor Ingestion]
-        A["sensor_data.csv (PM2.5, PM10, Weather)"] & B["camera_events.csv (CV Dust Alerts)"] -->|Temporal Match Loop| C["Fusion Logic Engine"]
+    subgraph Ingestion Layer [Data Ingestion & Event Extraction]
+        A["IoT Dust Sensor (PM10)"] -->|Raw Time-Series| C["Temporal Window & Wind Corridor Engine"]
+        B["Smart City CV Camera"] -->|Visual Dust Event Detection| C
+        D["Weather Station (Wind 50°-140°)"] -->|Wind Vector Alignment| C
     end
     
-    subgraph Analytical Core [Fusion & Prediction]
-        C -->|Wind Alignment Verification| D["fused_events.csv"]
-        D -->|Lag & Rolling Feature Engineering| E["Random Forest Forecaster (T+30m)"]
+    subgraph Analytical Core [Feature Engineering & Forecasting]
+        C -->|Fused Event Logs| E["Autoregressive ML Forecaster (Random Forest Regressor, <5ms latency, <45MB RAM)"]
     end
     
     subgraph Governance Core [Control & Action Dispatcher]
@@ -47,12 +59,12 @@ flowchart TD
 *   **Wind Corridor Validation:** Verifies dust transport physics by determining if local wind vectors fall within the critical $50^\circ \text{ to } 140^\circ$ urban corridor. True dust events (`label = 1`) are flagged only when sensor spikes, camera alarms, and wind alignment are simultaneously confirmed.
 
 ### 2. Proactive Machine Learning Forecasting
-*   **Temporal Lag Engineering:** Creates autoregressive features (PM10 lag windows of 5, 15, 30, and 60 minutes) coupled with rolling statistics (means, standard deviations) to act as leading indicators of PM spikes.
-*   **Unsupervised / Supervised Regressor:** Employs a robust Random Forest Regressor optimized for sub-millisecond execution, predicting localized PM10 levels up to 30 minutes into the future.
+*   **Temporal Lag Engineering:** Creates autoregressive features (PM10 lag windows of 5, 15, 30, and 60 minutes) coupled with rolling statistics to act as leading indicators of PM spikes.
+*   **Random Forest Regressor:** Optimized for sub-millisecond execution ($<5\text{ms}$), predicting localized PM10 levels up to 30 minutes into the future.
 
 ### 3. Severity Actuation & Governance Dispatch
 *   **Automated Spray Mapping:** Unhealthy forecasts ($150\text{--}250\ \mu\text{g/m}^3$) trigger automated water mist sprinklers at 60% intensity for 180 seconds.
-*   **Contractor Compliance Scoring:** Hazardous forecasts ($>250\ \mu\text{g/m}^3$) trigger 100% spray mitigation, dispatch municipal warnings, and flag heavy earthmoving contractor infractions for automated legal/financial penalty tracking.
+*   **Contractor Compliance Scoring:** Hazardous forecasts ($>250\ \mu\text{g/m}^3$) trigger 100% spray mitigation, dispatch municipal warnings, and flag heavy earthmoving contractor infractions.
 
 ---
 
@@ -69,19 +81,9 @@ flowchart TD
 
 ---
 
-## ⚙️ Specifications & Local Constraints
-
-*   **Low Computational Footprint:** Entire prediction pipeline is optimized to run locally on resource-constrained municipal servers (e.g., dual-core MacBook Air 2017 i5, 8GB RAM).
-*   **Sub-Millisecond Inference:** Inference latency is **<5ms** per data point, allowing for massive scaling across thousands of smart city quadrants.
-*   **Edge Memory Footprint:** FastAPI prediction server operates on **<45MB RAM** with no heavy GPU or neural network framework dependencies.
-
----
-
 ## 🚀 Quick Start (Under 60 Seconds)
 
-### 1. Install System Dependencies
-Ensure you have Python 3.8+ installed, then clone the repository and install all library packages:
-
+### 1. Install Dependencies
 ```bash
 git clone https://github.com/seeramsujay/dust-vision.git
 cd dust-vision
@@ -89,36 +91,25 @@ pip install -r requirements.txt
 ```
 
 ### 2. Run ML Forecasting Pipeline
-Train the Random Forest regressor and generate prediction plots and before/after mitigation curves:
-
 ```bash
 python pm_forecast.py
 ```
-This saves the serialized model (`rf_pm_forecast.pkl`) and outputs:
+This saves the serialized model (`rf_pm_forecast.pkl`) and generates:
 *   `prediction_plots.png` (actual vs predicted PM10)
 *   `impact_simulation.png` (pollution reduction curve)
 *   `metrics_table.json` (MAE and RMSE validation metrics)
 
 ### 3. Launch FastAPI Prediction Server
-Spin up the local API endpoints to serve real-time predictions to your control dashboard:
-
 ```bash
 python api.py
 ```
-Open your browser to `http://localhost:8000/docs` to interact with:
-*   `POST /predict` – Predict PM10 levels based on the latest engineered sensor features.
-*   `GET /metrics` – Fetch current MAE and RMSE model performance numbers.
-*   `GET /simulate_mitigation` – Simulate the reduction rate under proactive sprinkler dispatch.
+Open your browser to `http://localhost:8000/docs` to interact with the API endpoints.
 
 ---
 
-## 📂 Repository Layout
+## 🔮 Engineering Roadmap
 
-*   `/data`: Houses clean CSV logs for sensors, camera events, and final fused events.
-*   `/ml`: Contains notebooks, plots, metrics, and the serialized Random Forest regressor.
-*   `aq_severity_engine.py`: Defines the classification levels (Good to Hazardous).
-*   `action_mapping_system.py`: Controls automated sprinkler dispatches and contractor halting flags.
-*   `orchestrator.py`: Integrates sensor data streams, forecast models, and mitigation dispatches.
+To explore planned features including edge RTSP optical density estimation, urban street-canyon CFD simulation, and industrial Modbus/MQTT hardware actuation, read [future.md](future.md).
 
 ---
 
